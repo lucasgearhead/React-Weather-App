@@ -1,0 +1,20 @@
+.display {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2% 2% 0% 0%;
+}
+.datetime {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+.time {
+  font-size: 3.5em;
+  font-weight: bold;
+}
+.day {
+  font-size: 1.3em;
+}
