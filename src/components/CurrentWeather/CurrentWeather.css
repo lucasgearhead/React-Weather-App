@@ -25,17 +25,25 @@
   justify-content: space-between;
   align-items: center;
 }
-.buttons hr {
+hr {
   height: 5vh;
   width: 0.1vw;
   border: none;
   background-color: white;
 }
-a {
+span {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
   text-decoration: none;
   font-size: 2em;
+  cursor: pointer;
+}
+.active {
+  opacity: 0.5;
 }
 .weather {
   font-size: 1.3em;
   font-weight: bold;
+  padding-bottom: 8%;
 }
