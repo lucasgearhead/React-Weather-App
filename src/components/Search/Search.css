@@ -4,6 +4,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .icon {
   size: 2em;
 }
@@ -16,7 +17,6 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding-right: 2%;
   font-size: 1.3em;
   font-weight: bold;
   width: 13vw;

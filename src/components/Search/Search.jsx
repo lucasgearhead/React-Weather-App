@@ -1,33 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Search.css";
 import { IoIosSearch } from "react-icons/io";
 
-export default function Search() {
-  const [cityQuery, setCityQuery] = useState("");
-  const [cityData, setCityData] = useState(null);
+export default function Search({ handleCity, weatherData }) {
+  const [inputValue, setInputValue] = useState("");
 
-  const handleInputChange = (event) => {
-    setCityQuery(event.target.value);
-  };
-
-  const handleSearch = async () => {
-    try {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityQuery}&appid=1871496f2ca4459545804dd8e8be545b`
-      );
-      const data = await response.json();
-      setCityData(data);
-    } catch (error) {
-      console.error("Error fetching city data:", error);
+  useEffect(() => {
+    if (weatherData) {
+      setInputValue(weatherData.name);
     }
-    alert(cityData.name);
-  };
+  }, [weatherData]);
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      handleSearch();
+      handleCity(inputValue);
+      setInputValue("");
     }
   };
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
   return (
     <div className="container">
       <IoIosSearch fontSize={"2em"} />
@@ -35,8 +29,8 @@ export default function Search() {
         type="text"
         className="city"
         placeholder="Your city"
-        value={cityQuery}
-        onChange={handleInputChange}
+        value={inputValue}
+        onChange={handleChange}
         onKeyPress={handleKeyPress}
       />
     </div>
