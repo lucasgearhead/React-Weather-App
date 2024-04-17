@@ -24,15 +24,14 @@ export default function Search({ handleCity, weatherData }) {
 
   return (
     <div className="container">
-      <IoIosSearch fontSize={"2em"} />
       <input
         type="text"
-        className="city"
         placeholder="Your city"
         value={inputValue}
         onChange={handleChange}
         onKeyPress={handleKeyPress}
       />
+      <IoIosSearch fontSize={"2em"} />
     </div>
   );
 }

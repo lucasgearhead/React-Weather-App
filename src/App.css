@@ -16,15 +16,18 @@
   justify-content: space-between;
   align-items: center;
   padding: 2%;
+  flex-wrap: wrap;
 }
 
 .day {
-  height: 100vh;
+  min-height: 100vh;
+  max-height: auto;
   background: var(--day-gradient);
 }
 
 .night {
-  height: 100vh;
+  min-height: 100vh;
+  max-height: auto;
   background: var(--night-gradient);
 }
 .sun .moon {
