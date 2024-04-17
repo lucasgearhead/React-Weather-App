@@ -1,0 +1,49 @@
+.currentWeatherContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  font-size: 1em;
+}
+.temp {
+  font-size: 8em;
+  font-weight: bold;
+}
+.moreInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+}
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+hr {
+  height: 5vh;
+  width: 0.1vw;
+  border: none;
+  background-color: white;
+}
+span {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  text-decoration: none;
+  font-size: 2em;
+  cursor: pointer;
+}
+.active {
+  opacity: 0.5;
+}
+.weather {
+  font-size: 1.3em;
+  font-weight: bold;
+  padding-bottom: 8%;
+}

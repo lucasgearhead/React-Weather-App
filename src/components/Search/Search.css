@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  size: 2em;
+}
+.city {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: bold;
+  width: 13vw;
+}
+.city::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
