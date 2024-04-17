@@ -34,7 +34,7 @@ export default function DateTime({ weatherData, dayOrNight }) {
     };
 
     convertTime(weatherData.dt, weatherData.timezone);
-  }, [weatherData]);
+  }, [dayOrNight, weatherData.dt, weatherData.timezone]);
 
   return (
     <div className="datetime">
