@@ -46,4 +46,5 @@ span {
   font-size: 1.3em;
   font-weight: bold;
   padding-bottom: 8%;
+  text-transform: capitalize;
 }
