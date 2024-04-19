@@ -29,12 +29,11 @@ export default function ForecastWeather({
     }
   };
 
-  // Define a função adjustIconForDay fora do reduce
   function adjustIconForDay(iconCode) {
     if (iconCode.endsWith("n")) {
-      return iconCode.slice(0, -1) + "d"; // Substitui 'n' por 'd'
+      return iconCode.slice(0, -1) + "d";
     }
-    return iconCode; // Retorna o mesmo ícone se não terminar com 'n'
+    return iconCode;
   }
 
   const groupedForecasts = forecastData.reduce((acc, forecast) => {
