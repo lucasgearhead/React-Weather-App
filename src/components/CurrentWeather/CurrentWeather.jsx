@@ -1,14 +1,12 @@
-import { React, useState } from "react";
+import { React } from "react";
 import "./CurrentWeather.css";
 
-export default function CurrentWeather({ weatherData }) {
-  const [unit, setUnit] = useState("metric");
-  const isMetric = unit === "metric";
-
-  const handleUnit = () => {
-    const newUnit = unit === "metric" ? "imperial" : "metric";
-    setUnit(newUnit);
-  };
+export default function CurrentWeather({
+  weatherData,
+  weatherUnit,
+  toggleUnit,
+}) {
+  const isMetric = weatherUnit === "metric";
 
   const convertTemperature = (temperature, unit) => {
     if (unit === "metric") {
@@ -34,10 +32,10 @@ export default function CurrentWeather({ weatherData }) {
     <div className="currentWeatherContainer">
       <div className="info">
         <div className="temp">
-          {convertTemperature(weatherData.main.temp, unit)}
+          {convertTemperature(weatherData.main.temp, weatherUnit)}
         </div>
         <div className="moreInfo">
-          <span onClick={handleUnit}>
+          <span onClick={toggleUnit}>
             <p className={isMetric ? "" : "active"}>°C</p>
             <hr />
             <p className={isMetric ? "active" : ""}>°F</p>
@@ -47,7 +45,7 @@ export default function CurrentWeather({ weatherData }) {
             Humidity: {weatherData.main.humidity + "%"}
           </p>
           <p className="wind">
-            Wind: {convertSpeed(weatherData.wind.speed, unit)}
+            Wind: {convertSpeed(weatherData.wind.speed, weatherUnit)}
           </p>
         </div>
       </div>

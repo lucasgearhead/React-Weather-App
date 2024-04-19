@@ -1,0 +1,45 @@
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2%;
+  align-items: center;
+  height: 28vh;
+  font-size: 1.2em;
+}
+.card {
+  height: 28vh;
+  width: 10vw;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.today {
+  background-color: #ffffff3f;
+}
+.temps {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5%;
+  text-align: center;
+  align-items: center;
+}
+.tempMin {
+  opacity: 0.7;
+}
+
+p {
+  text-wrap: nowrap;
+}
+.weatherIcon {
+  height: 15vh;
+  width: auto;
+  filter: drop-shadow(0px 0px 1px rgba(255, 255, 255, 1));
+}
+.forecastDescription {
+  text-transform: capitalize;
+}

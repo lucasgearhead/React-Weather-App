@@ -3,15 +3,18 @@ import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
 import DateTime from "./components/DateTime/DateTime";
 import Search from "./components/Search/Search";
 import Loading from "./components/Loading/Loading";
+import ForecastWeather from "./components/ForecastWeather/ForecastWeather";
 import { ReactComponent as SunIcon } from "./assets/icons/weather/sun.svg";
 import { ReactComponent as MoonIcon } from "./assets/icons/weather/moon.svg";
 import "./App.css";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
-  const [forecastData, setForecastData] = useState(null);
+  const [forecastData, setForecastData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isDay, setIsDay] = useState(false);
+  const [unit, setUnit] = useState("metric");
+  const [dayOfWeek, setDayOfWeek] = useState("");
 
   const fetchData = async (city) => {
     setIsLoading(true);
@@ -38,8 +41,7 @@ function App() {
       const fData = await forecastResponse.json();
 
       if (fData.cod === "200") {
-        setForecastData(fData);
-        console.log(forecastData);
+        setForecastData(fData.list);
       } else {
         alert(fData.message);
       }
@@ -51,6 +53,19 @@ function App() {
 
   const dayOrNight = (value) => {
     setIsDay(value);
+  };
+
+  const toggleUnit = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      const newUnit = unit === "metric" ? "imperial" : "metric";
+      setUnit(newUnit);
+      setIsLoading(false);
+    }, 500);
+  };
+
+  const currentDayOfWeek = (value) => {
+    setDayOfWeek(value);
   };
 
   return (
@@ -70,11 +85,28 @@ function App() {
             ) : (
               <MoonIcon className="moon" />
             )}
-            <CurrentWeather weatherData={weatherData} />
+            <CurrentWeather
+              weatherData={weatherData}
+              weatherUnit={unit}
+              toggleUnit={toggleUnit}
+            />
             <div>
-              <DateTime weatherData={weatherData} dayOrNight={dayOrNight} />
+              <DateTime
+                weatherData={weatherData}
+                dayOrNight={dayOrNight}
+                currentDayOfWeek={currentDayOfWeek}
+                returnDayOfWeek={dayOfWeek}
+              />
               <Search handleCity={fetchData} weatherData={weatherData} />
             </div>
+          </div>
+
+          <div>
+            <ForecastWeather
+              forecastData={forecastData}
+              unit={unit}
+              currentDayOfWeek={dayOfWeek}
+            />
           </div>
         </div>
       )}
