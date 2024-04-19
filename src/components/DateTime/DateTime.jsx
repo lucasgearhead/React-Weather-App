@@ -1,9 +1,13 @@
 import { React, useEffect, useState } from "react";
 import "./DateTime.css";
 
-export default function DateTime({ weatherData, dayOrNight }) {
+export default function DateTime({
+  weatherData,
+  dayOrNight,
+  currentDayOfWeek,
+  returnDayOfWeek,
+}) {
   const [currentHour, setCurrentHour] = useState(false);
-  const [dayOfWeek, setDayOfWeek] = useState(false);
 
   useEffect(() => {
     const convertTime = (dt, timezone) => {
@@ -29,17 +33,17 @@ export default function DateTime({ weatherData, dayOrNight }) {
       const dayOfWeek = daysOfWeek[targetDate.getUTCDay()];
 
       setCurrentHour(formattedTime);
-      setDayOfWeek(dayOfWeek);
+      currentDayOfWeek(dayOfWeek);
       dayOrNight(hours > 4 && hours < 18 ? true : false);
     };
 
     convertTime(weatherData.dt, weatherData.timezone);
-  }, [dayOrNight, weatherData.dt, weatherData.timezone]);
+  }, [dayOrNight, weatherData.dt, weatherData.timezone, currentDayOfWeek]);
 
   return (
     <div className="datetime">
       <p className="time">{currentHour}</p>
-      <p className="currentDay">{dayOfWeek}</p>
+      <p className="currentDay">{returnDayOfWeek}</p>
     </div>
   );
 }
