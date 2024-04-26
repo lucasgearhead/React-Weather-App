@@ -1,0 +1,19 @@
+.spans {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  font-size: 0.6em;
+  gap: 1%;
+}
+.bar {
+  height: 1.8em;
+  width: 0.1em;
+  background-color: white;
+}
+
+.GraphicsContainer {
+  padding-inline: 15%;
+  padding-block: 1%;
+  flex-grow: 1;
+}
