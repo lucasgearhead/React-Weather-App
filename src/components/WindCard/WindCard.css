@@ -1,0 +1,51 @@
+.wind-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 30vh;
+}
+
+.wind-card {
+  height: 25vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.wind-card.show {
+  opacity: 1;
+}
+
+@keyframes rotateArrow {
+  from {
+    transform: rotate(0deg);
+  }
+}
+
+.arrow-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  animation: rotateArrow 0.5s linear;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-right: 18px solid transparent;
+  border-left: 18px solid transparent;
+  border-bottom: 30px solid #fff;
+  animation: rotateArrow 0.5s linear;
+}
+
+.body-arrow {
+  height: 30px;
+  width: 10px;
+  background-color: #fff;
+}
