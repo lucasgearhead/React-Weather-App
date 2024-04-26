@@ -16,7 +16,7 @@ function App() {
   const [isDay, setIsDay] = useState(false);
   const [unit, setUnit] = useState("metric");
   const [dayOfWeek, setDayOfWeek] = useState("");
-  const appid = "b32bf22decdbfc851eac42a3cf124f88";
+  const appid = "YOUR API KEY";
 
   useEffect(() => {
     const fetchInitialWeather = async () => {
@@ -28,6 +28,7 @@ function App() {
       }
     };
     fetchInitialWeather();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchLocationByIP = async () => {
@@ -71,8 +72,9 @@ function App() {
         alert(fData.message);
       }
     } catch (error) {
-      alert("Error fetching weather data:", error);
+      alert("Error fetching forecast data:", error);
     }
+
     setIsLoading(false);
   };
 
