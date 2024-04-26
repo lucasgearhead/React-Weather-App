@@ -28,9 +28,6 @@
   text-align: center;
   align-items: center;
 }
-.tempMin {
-  opacity: 0.7;
-}
 
 p {
   text-wrap: nowrap;
@@ -42,4 +39,5 @@ p {
 }
 .forecastDescription {
   text-transform: capitalize;
+  text-wrap: wrap;
 }

@@ -1,33 +1,12 @@
-import { React } from "react";
 import "./ForecastWeather.css";
+import ConvertedTime from "../../utils/ConvertedTime";
+import ConvertedTemperature from "../../utils/ConvertedTemperature";
 
-export default function ForecastWeather({
-  forecastData,
-  unit,
-  currentDayOfWeek,
-}) {
-  const formDayWeek = (dayOfWeek) => {
-    const dayWeek = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    return dayWeek.indexOf(dayOfWeek) !== -1 ? dayOfWeek : "";
-  };
-
-  const convertTemperature = (temperature) => {
-    if (unit === "metric") {
-      return Math.round(temperature);
-    } else if (unit === "imperial") {
-      return Math.round((temperature * 9) / 5 + 32);
-    } else {
-      return "";
-    }
-  };
+export default function ForecastWeather({ forecastData, unit }) {
+  const currentDayOfWeekConverted = ConvertedTime(
+    forecastData.list[0].dt,
+    forecastData.city.timezone
+  ).currentDayOfWeek;
 
   function adjustIconForDay(iconCode) {
     if (iconCode.endsWith("n")) {
@@ -36,10 +15,11 @@ export default function ForecastWeather({
     return iconCode;
   }
 
-  const groupedForecasts = forecastData.reduce((acc, forecast) => {
-    const day = formDayWeek(
-      new Date(forecast.dt_txt).toLocaleDateString("en-US", { weekday: "long" })
-    );
+  const groupedForecasts = forecastData.list.reduce((acc, forecast) => {
+    const day = ConvertedTime(
+      forecast.dt,
+      forecastData.city.timezone
+    ).currentDayOfWeek;
     const existingDay = acc[day];
 
     if (existingDay) {
@@ -71,17 +51,19 @@ export default function ForecastWeather({
 
       existingDay.temp_min = Math.min(
         existingDay.temp_min,
-        forecast.main.temp_min
+        ConvertedTemperature(forecast.main.temp_min, unit).convertedTemperature
       );
       existingDay.temp_max = Math.max(
         existingDay.temp_max,
-        forecast.main.temp_max
+        ConvertedTemperature(forecast.main.temp_max, unit).convertedTemperature
       );
     } else {
       acc[day] = {
         day,
-        temp_min: forecast.main.temp_min,
-        temp_max: forecast.main.temp_max,
+        temp_min: ConvertedTemperature(forecast.main.temp_min, unit)
+          .convertedTemperature,
+        temp_max: ConvertedTemperature(forecast.main.temp_max, unit)
+          .convertedTemperature,
         icon: adjustIconForDay(forecast.weather[0].icon),
         description: forecast.weather[0].description,
       };
@@ -93,34 +75,29 @@ export default function ForecastWeather({
   const dailyForecasts = Object.values(groupedForecasts);
 
   return (
-    <>
-      <div className="cardContainer">
-        {dailyForecasts.map((dayForecast) => {
-          const dayOfWeek = formDayWeek(dayForecast.day);
-          const isToday = dayOfWeek === currentDayOfWeek;
+    <div className="cardContainer">
+      {dailyForecasts.map((dayForecast) => {
+        const isToday = dayForecast.day === currentDayOfWeekConverted;
 
-          return (
-            <div
-              key={dayForecast.day}
-              className={`card ${isToday ? "today" : ""}`}
-            >
-              <div>{dayForecast.day}</div>
-              <img
-                src={`http://openweathermap.org/img/wn/${dayForecast.icon}@4x.png`}
-                alt="Weather Icon"
-                className="weatherIcon"
-              />
-              <p className="forecastDescription">{dayForecast.description}</p>
-              <div className="temps">
-                <p>{convertTemperature(dayForecast.temp_max)}°</p>
-                <p className="tempMin">
-                  {convertTemperature(dayForecast.temp_min)}°
-                </p>
-              </div>
+        return (
+          <div
+            key={dayForecast.day}
+            className={`card ${isToday ? "today" : ""}`}
+          >
+            <div>{dayForecast.day}</div>
+            <img
+              src={`http://openweathermap.org/img/wn/${dayForecast.icon}@4x.png`}
+              alt="Weather Icon"
+              className="weatherIcon"
+            />
+            <p className="forecastDescription">{dayForecast.description}</p>
+            <div className="temps">
+              <p>{dayForecast.temp_max + "°"}</p>
+              <p className="deactive">{dayForecast.temp_min + "°"}</p>
             </div>
-          );
-        })}
-      </div>
-    </>
+          </div>
+        );
+      })}
+    </div>
   );
 }
