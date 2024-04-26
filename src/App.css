@@ -19,15 +19,18 @@
   flex-wrap: wrap;
 }
 
-.day {
+.app-container {
   min-height: 100vh;
-  max-height: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.day {
   background: var(--day-gradient);
 }
 
 .night {
-  min-height: 100vh;
-  max-height: auto;
   background: var(--night-gradient);
 }
 .sun .moon {
@@ -42,4 +45,8 @@
   justify-content: center;
   align-items: center;
   gap: 5%;
+}
+
+.deactive {
+  opacity: 0.7;
 }

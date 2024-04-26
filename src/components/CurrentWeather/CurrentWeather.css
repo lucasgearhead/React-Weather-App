@@ -39,9 +39,6 @@ span {
   font-size: 2em;
   cursor: pointer;
 }
-.active {
-  opacity: 0.5;
-}
 .weather {
   font-size: 1.3em;
   font-weight: bold;
