@@ -14,7 +14,7 @@ export default function CurrentWeather({ weatherData, unit, toggleUnit }) {
           }
         </div>
         <div className="moreInfo">
-          <span onClick={toggleUnit}>
+          <span onClick={toggleUnit} className="toggle-unit">
             <p className={unit === "metric" ? "" : "deactive"}>°C</p>
             <hr />
             <p className={unit === "metric" ? "deactive" : ""}>°F</p>
