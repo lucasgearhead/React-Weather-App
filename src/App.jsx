@@ -8,6 +8,7 @@ import { ReactComponent as SunIcon } from "./assets/icons/weather/sun.svg";
 import { ReactComponent as MoonIcon } from "./assets/icons/weather/moon.svg";
 import "./App.css";
 import FooterGraphics from "./components/FooterGraphics/FooterGraphics";
+import AlertBox from "./components/AlertBox/AlertBox";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -16,6 +17,7 @@ function App() {
   const [isDay, setIsDay] = useState(false);
   const [unit, setUnit] = useState("metric");
   const [dayOfWeek, setDayOfWeek] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
   const appid = "YOUR API KEY";
 
   useEffect(() => {
@@ -24,7 +26,7 @@ function App() {
       if (cityFromIP) {
         await fetchData(cityFromIP);
       } else {
-        setIsLoading(false);
+        await fetchData("london");
       }
     };
     fetchInitialWeather();
@@ -37,13 +39,14 @@ function App() {
       const data = await response.json();
       return data.city;
     } catch (error) {
-      console.error("Error fetching location by IP:", error);
+      alert("Error fetching location by IP:", error);
       return null;
     }
   };
 
   const fetchData = async (city) => {
     setIsLoading(true);
+    setErrorMessage(null);
     try {
       const weatherResponse = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appid}&units=metric`
@@ -53,26 +56,27 @@ function App() {
       if (wData.cod === 200) {
         setWeatherData(wData);
       } else {
-        alert(wData.message);
+        setErrorMessage(wData);
       }
     } catch (error) {
-      alert("Error fetching weather data:", error);
+      console.log("Error fetching weather data:", error);
     }
 
-    try {
-      const forecastResponse = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${appid}&units=metric`
-      );
+    if (errorMessage === null) {
+      try {
+        const forecastResponse = await fetch(
+          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${appid}&units=metric`
+        );
 
-      const fData = await forecastResponse.json();
-
-      if (fData.cod === "200") {
-        setForecastData(fData);
-      } else {
-        alert(fData.message);
+        const fData = await forecastResponse.json();
+        if (fData.cod === "200") {
+          setForecastData(fData);
+        } else {
+          setErrorMessage(fData);
+        }
+      } catch (error) {
+        console.log("Error fetching forecast data:", error);
       }
-    } catch (error) {
-      alert("Error fetching forecast data:", error);
     }
 
     setIsLoading(false);
@@ -99,6 +103,12 @@ function App() {
     <>
       {isLoading ? (
         <Loading />
+      ) : errorMessage ? (
+        <AlertBox
+          errorMessage={errorMessage}
+          handleCity={fetchData}
+          weatherData={weatherData}
+        />
       ) : (
         <div className={`app-container ${isDay ? "day" : "night"}`}>
           <div className="app">

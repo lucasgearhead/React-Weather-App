@@ -3,17 +3,20 @@
   flex-direction: row;
   justify-content: left;
   align-items: center;
-  font-size: 0.6em;
+  font-size: calc(0.5vw + 0.5vh);
   gap: 1%;
 }
 .bar {
-  height: 1.8em;
-  width: 0.1em;
+  height: calc(1vw + 1vh);
+  width: calc(0.05vw + 0.05vh);
   background-color: white;
 }
 
 .GraphicsContainer {
-  padding-inline: 15%;
-  padding-block: 1%;
-  flex-grow: 1;
+  height: 35vh;
+  padding: 0.5% 15% 1% 15%;
+}
+
+.chart-span {
+  font-size: calc(0.8vh + 0.8vw);
 }

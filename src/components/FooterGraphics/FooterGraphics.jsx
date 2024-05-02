@@ -14,7 +14,7 @@ export default function FooterGraphics({ forecastData, unit }) {
     <div className="GraphicsContainer">
       <div className="spans">
         <span
-          className={`GraphicsChooses ${
+          className={`chart-span ${
             selectedData === "Temperature" ? "" : "deactive"
           }`}
           onClick={() => handleSelectData("Temperature")}
@@ -23,7 +23,7 @@ export default function FooterGraphics({ forecastData, unit }) {
         </span>
         <div className="bar" />
         <span
-          className={`GraphicsChooses ${
+          className={`chart-span ${
             selectedData === "Humidity" ? "" : "deactive"
           }`}
           onClick={() => handleSelectData("Humidity")}
@@ -32,9 +32,7 @@ export default function FooterGraphics({ forecastData, unit }) {
         </span>
         <div className="bar" />
         <span
-          className={`GraphicsChooses ${
-            selectedData === "Wind" ? "" : "deactive"
-          }`}
+          className={`chart-span ${selectedData === "Wind" ? "" : "deactive"}`}
           onClick={() => handleSelectData("Wind")}
         >
           Wind
@@ -52,7 +50,7 @@ export default function FooterGraphics({ forecastData, unit }) {
         ) : selectedData === "Humidity" ? (
           <Chart forecastData={forecastData} option={"Humidity"} unit={unit} />
         ) : (
-          <p>ERRO</p>
+          <p>ERROR</p>
         )}
       </div>
     </div>

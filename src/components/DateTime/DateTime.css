@@ -7,9 +7,9 @@
   padding-bottom: 15%;
 }
 .time {
-  font-size: 3.5em;
+  font-size: calc(2.5vw + 2.5vh);
   font-weight: bold;
 }
 .currentDay {
-  font-size: 1.3em;
+  font-size: calc(0.8vw + 0.8vh);
 }

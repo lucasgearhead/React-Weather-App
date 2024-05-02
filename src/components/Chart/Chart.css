@@ -1,0 +1,4 @@
+.chart-container {
+  height: calc(10vh + 10vw);
+  width: 100%;
+}
