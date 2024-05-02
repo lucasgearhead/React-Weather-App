@@ -18,6 +18,11 @@ export default function Search({ handleCity, weatherData }) {
     }
   };
 
+  const searchButton = () => {
+    handleCity(inputValue);
+    setInputValue("");
+  };
+
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -26,12 +31,13 @@ export default function Search({ handleCity, weatherData }) {
     <div className="container">
       <input
         type="text"
-        placeholder="Your city"
-        value={inputValue}
+        placeholder={inputValue ? inputValue : "city name"}
         onChange={handleChange}
         onKeyPress={handleKeyPress}
       />
-      <IoIosSearch fontSize={"2em"} />
+      <span onClick={searchButton}>
+        <IoIosSearch className="search-icon" />
+      </span>
     </div>
   );
 }

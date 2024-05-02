@@ -2,11 +2,10 @@
   display: flex;
   flex-direction: row;
   align-items: right;
-  border-bottom: 0.01em solid white;
+  border-bottom: calc(0.01vh + 0.01vw) solid white;
+  height: 5vh;
 }
-.icon {
-  size: 2em;
-}
+
 input {
   background-color: transparent;
   outline: none;
@@ -14,10 +13,15 @@ input {
   color: white;
   text-align: center;
   text-transform: uppercase;
-  font-size: 120%;
+  font-size: calc(0.7vw + 0.7vw);
   font-weight: bold;
   width: 13vw;
+  height: 5vh;
 }
 input::placeholder {
   color: rgba(255, 255, 255, 0.8);
+}
+
+.search-icon {
+  font-size: calc(1.5vw + 1.5vh);
 }
