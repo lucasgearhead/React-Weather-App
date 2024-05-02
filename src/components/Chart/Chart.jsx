@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJs,
@@ -24,10 +24,6 @@ ChartJs.register(
 );
 
 const Chart = ({ forecastData, option, unit }) => {
-  setInterval(() => {
-    calculateFontSize();
-  }, 5000);
-
   const calculateFontSize = () => {
     const vh = window.innerHeight;
     const vw = window.innerWidth;
@@ -108,7 +104,7 @@ const Chart = ({ forecastData, option, unit }) => {
   };
 
   return (
-    <div className="tst">
+    <div className="chart-container">
       <Line data={data} options={options} />
     </div>
   );
