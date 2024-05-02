@@ -11,6 +11,7 @@ import {
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import ConvertedTime from "../../utils/ConvertedTime";
+import "./Chart.css";
 
 ChartJs.register(
   LineElement,
@@ -23,6 +24,12 @@ ChartJs.register(
 );
 
 const Chart = ({ forecastData, option, unit }) => {
+  const calculateFontSize = () => {
+    const vh = window.innerHeight;
+    const vw = window.innerWidth;
+    return Math.round((0.7 * vh + 0.7 * vw) / 100);
+  };
+
   const chartColor =
     option === "Temperature"
       ? { border: "#FFCC00", back: "#FFCC0099" }
@@ -45,7 +52,8 @@ const Chart = ({ forecastData, option, unit }) => {
         pointBorderColor: chartColor.border,
         pointBackgroundColor: chartColor.border,
         pointStyle: "circle",
-        tension: 0.4,
+        pointRadius: parseInt(calculateFontSize() / 3),
+        tension: calculateFontSize() / 50,
         fill: true,
       },
     ],
@@ -57,7 +65,7 @@ const Chart = ({ forecastData, option, unit }) => {
         color: "white",
         align: "end",
         anchor: "end",
-        font: { size: 14 },
+        font: { size: calculateFontSize() },
         formatter: (value) => {
           const convertedValue =
             option === "Temperature"
@@ -76,9 +84,7 @@ const Chart = ({ forecastData, option, unit }) => {
         },
         ticks: {
           color: "white",
-          font: {
-            size: 14,
-          },
+          font: { size: calculateFontSize() },
         },
       },
       y: {
@@ -88,8 +94,8 @@ const Chart = ({ forecastData, option, unit }) => {
         ticks: {
           color: "transparent",
         },
-        suggestedMin: Math.min(...datas) - 5,
-        suggestedMax: Math.max(...datas) + 5,
+        suggestedMin: Math.min(...datas) - 4,
+        suggestedMax: Math.max(...datas) + 4,
       },
     },
     responsive: true,
@@ -98,7 +104,7 @@ const Chart = ({ forecastData, option, unit }) => {
   };
 
   return (
-    <div style={{ height: "230px", width: "100%" }}>
+    <div className="chart-container">
       <Line data={data} options={options} />
     </div>
   );

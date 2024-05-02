@@ -9,16 +9,16 @@
   justify-content: center;
   align-items: center;
   text-align: left;
-  font-size: 1em;
+  font-size: calc(0.7vh + 0.7vw);
 }
 .temp {
-  font-size: 8em;
+  font-size: calc(6vh + 6vw);
   font-weight: bold;
 }
 .moreInfo {
   display: flex;
   flex-direction: column;
-  gap: 0.2em;
+  gap: calc(0.15vw + 0.15vh);
 }
 .buttons {
   display: flex;
@@ -31,16 +31,16 @@ hr {
   border: none;
   background-color: white;
 }
-span {
+.toggle-unit {
   display: flex;
   flex-direction: row;
-  gap: 0.5em;
+  gap: calc(0.5vw + 0.5vh);
   text-decoration: none;
-  font-size: 2em;
+  font-size: calc(1.2vw + 1.2vh);
   cursor: pointer;
 }
 .weather {
-  font-size: 1.3em;
+  font-size: calc(0.8vw + 0.8vh);
   font-weight: bold;
   padding-bottom: 8%;
   text-transform: capitalize;
