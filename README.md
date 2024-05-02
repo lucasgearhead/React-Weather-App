@@ -23,7 +23,7 @@ This project aims to provide weather information and showcase development skills
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://github.com/seu-usuario/nome-do-repositorio.git`
+1. Clone the repository: `git clone https://github.com/lucasgearhead/React-Weather-Front`
 2. Install dependencies: `npm install`
 3. Replace `'your api key'` in `app.jsx` with your OpenWeatherMap API key.
 4. Start the application: `npm start`
