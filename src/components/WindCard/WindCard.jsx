@@ -19,7 +19,9 @@ export default function WindCard({ forecastData, unit }) {
         );
         return (
           <div key={index} className={`wind-card ${showCards ? "show" : ""}`}>
-            <p>{ConvertedSpeed(data.wind.speed, unit).convertedSpeed}</p>
+            <p className="wind-speed">
+              {ConvertedSpeed(data.wind.speed, unit).convertedSpeed}
+            </p>
             <div
               className="arrow-container"
               style={{
@@ -29,7 +31,7 @@ export default function WindCard({ forecastData, unit }) {
               <div className="arrow"></div>
               <div className="body-arrow"></div>
             </div>
-            <p>{currentHour}</p>
+            <p className="wind-speed">{currentHour}</p>
           </div>
         );
       })}
