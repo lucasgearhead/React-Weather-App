@@ -53,7 +53,7 @@ const Chart = ({ forecastData, option, unit }) => {
         pointBackgroundColor: chartColor.border,
         pointStyle: "circle",
         pointRadius: parseInt(calculateFontSize() / 3),
-        tension: calculateFontSize() / 50,
+        tension: 0.4,
         fill: true,
       },
     ],
