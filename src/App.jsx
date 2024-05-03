@@ -11,16 +11,18 @@ import FooterGraphics from "./components/FooterGraphics/FooterGraphics";
 import AlertBox from "./components/AlertBox/AlertBox";
 
 function App() {
-  const [weatherData, setWeatherData] = useState(null);
-  const [forecastData, setForecastData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isDay, setIsDay] = useState(false);
-  const [unit, setUnit] = useState("metric");
-  const [dayOfWeek, setDayOfWeek] = useState("");
-  const [errorMessage, setErrorMessage] = useState(null);
-  const appid = "YOUR API KEY";
+  // State variables
+  const [weatherData, setWeatherData] = useState(null); // Stores current weather data
+  const [forecastData, setForecastData] = useState([]); // Stores forecast weather data
+  const [isLoading, setIsLoading] = useState(true); // Indicates whether data is loading
+  const [isDay, setIsDay] = useState(false); // Indicates whether it's daytime or nighttime
+  const [unit, setUnit] = useState("metric"); // Stores temperature unit (metric or imperial)
+  const [dayOfWeek, setDayOfWeek] = useState(""); // Stores current day of the week
+  const [errorMessage, setErrorMessage] = useState(null); // Stores error message, if any
+  const appid = "YOUR API KEY"; // Your OpenWeatherMap API key
 
   useEffect(() => {
+    // Fetch initial weather data
     const fetchInitialWeather = async () => {
       const cityFromIP = await fetchLocationByIP();
       if (cityFromIP) {
@@ -33,6 +35,7 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Function to fetch location by IP address
   const fetchLocationByIP = async () => {
     try {
       const response = await fetch("https://ipapi.co/json/");
@@ -44,10 +47,12 @@ function App() {
     }
   };
 
+  // Function to fetch weather data
   const fetchData = async (city) => {
     setIsLoading(true);
     setErrorMessage(null);
     try {
+      // Fetch current weather data
       const weatherResponse = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appid}&units=metric`
       );
@@ -62,8 +67,10 @@ function App() {
       console.log("Error fetching weather data:", error);
     }
 
+    // Fetch forecast data if no error occurred in fetching current weather
     if (errorMessage === null) {
       try {
+        // Fetch forecast weather data
         const forecastResponse = await fetch(
           `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${appid}&units=metric`
         );
@@ -79,13 +86,15 @@ function App() {
       }
     }
 
-    setIsLoading(false);
+    setIsLoading(false); // Set loading state to false after data fetching is done
   };
 
+  // Callback function to set day or night based on received value
   const dayOrNight = (value) => {
     setIsDay(value);
   };
 
+  // Function to toggle temperature unit between metric and imperial
   const toggleUnit = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -95,6 +104,7 @@ function App() {
     }, 500);
   };
 
+  // Callback function to set current day of the week
   const currentDayOfWeek = (value) => {
     setDayOfWeek(value);
   };
@@ -104,6 +114,7 @@ function App() {
       {isLoading ? (
         <Loading />
       ) : errorMessage ? (
+        // Display an alert box with error message if there's an error
         <AlertBox
           errorMessage={errorMessage}
           handleCity={fetchData}
@@ -112,17 +123,20 @@ function App() {
       ) : (
         <div className={`app-container ${isDay ? "day" : "night"}`}>
           <div className="app">
+            {/* Display sun or moon icon based on whether it's day or night */}
             {isDay ? (
               <SunIcon className="sun" />
             ) : (
               <MoonIcon className="moon" />
             )}
+            {/* Render CurrentWeather component */}
             <CurrentWeather
               weatherData={weatherData}
               unit={unit}
               toggleUnit={toggleUnit}
             />
             <div>
+              {/* Render DateTime and Search components */}
               <DateTime
                 weatherData={weatherData}
                 isDayOrNight={dayOrNight}
@@ -131,6 +145,7 @@ function App() {
               <Search handleCity={fetchData} weatherData={weatherData} />
             </div>
           </div>
+          {/* Render ForecastWeather and FooterGraphics components */}
           <ForecastWeather
             forecastData={forecastData}
             unit={unit}
