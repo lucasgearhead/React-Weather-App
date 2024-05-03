@@ -13,6 +13,7 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 import ConvertedTime from "../../utils/ConvertedTime";
 import "./Chart.css";
 
+// Register Chart.js components and plugins
 ChartJs.register(
   LineElement,
   CategoryScale,
@@ -23,24 +24,32 @@ ChartJs.register(
   ChartDataLabels
 );
 
+// Define the Chart component
 const Chart = ({ forecastData, option, unit }) => {
+  // Function to calculate font size based on viewport size
   const calculateFontSize = () => {
     const vh = window.innerHeight;
     const vw = window.innerWidth;
     return Math.round((0.7 * vh + 0.7 * vw) / 100);
   };
 
+  // Determine chart color based on the selected option
   const chartColor =
     option === "Temperature"
       ? { border: "#FFCC00", back: "#FFCC0099" }
       : { border: "#0bf", back: "#0bf5" };
+
+  // Extract data points for the chart
   const datas = forecastData.list
     .slice(0, 8)
     .map((entry) =>
       option === "Temperature" ? entry.main.temp : entry.main.humidity
     );
+
+  // Define chart data
   const data = {
     labels: forecastData.list.slice(0, 8).map((entry) => {
+      // Convert timestamps to local time
       const convertedTime = ConvertedTime(entry.dt, forecastData.city.timezone);
       return `${convertedTime.currentHour}`;
     }),
@@ -59,14 +68,17 @@ const Chart = ({ forecastData, option, unit }) => {
     ],
   };
 
+  // Define chart options
   const options = {
     plugins: {
+      // Configure data labels plugin
       datalabels: {
         color: "white",
         align: "end",
         anchor: "end",
         font: { size: calculateFontSize() },
         formatter: (value) => {
+          // Convert temperature or humidity values based on the selected unit
           const convertedValue =
             option === "Temperature"
               ? unit === "metric"
@@ -78,6 +90,7 @@ const Chart = ({ forecastData, option, unit }) => {
       },
     },
     scales: {
+      // Configure x-axis
       x: {
         grid: {
           display: false,
@@ -87,6 +100,7 @@ const Chart = ({ forecastData, option, unit }) => {
           font: { size: calculateFontSize() },
         },
       },
+      // Configure y-axis
       y: {
         grid: {
           display: false,
@@ -105,6 +119,7 @@ const Chart = ({ forecastData, option, unit }) => {
 
   return (
     <div className="chart-container">
+      {/* Render the Line chart */}
       <Line data={data} options={options} />
     </div>
   );

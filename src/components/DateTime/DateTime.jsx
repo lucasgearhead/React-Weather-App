@@ -7,12 +7,13 @@ export default function DateTime({
   isDayOrNight,
   theCurrentDayOfWeek,
 }) {
-  //const [currentHour, setCurrentHour] = useState(false);
+  // Extract current day of the week, day or night status, and current hour from ConvertedTime utility
   const { currentDayOfWeek, dayOrNight, currentHour } = ConvertedTime(
     weatherData.dt,
     weatherData.timezone
   );
 
+  // Update day or night status and current day of the week when weather data changes
   useEffect(() => {
     isDayOrNight(dayOrNight);
     theCurrentDayOfWeek(currentDayOfWeek);
@@ -27,7 +28,9 @@ export default function DateTime({
 
   return (
     <div className="datetime">
+      {/* Display current hour */}
       <p className="time">{currentHour}</p>
+      {/* Display current day of the week */}
       <p className="currentDay">{currentDayOfWeek}</p>
     </div>
   );
