@@ -4,14 +4,17 @@ import WindCard from "../WindCard/WindCard";
 import Chart from "../Chart/Chart";
 
 export default function FooterGraphics({ forecastData, unit }) {
+  // State variable to store the selected data type (Temperature, Humidity, Wind)
   const [selectedData, setSelectedData] = useState("Temperature");
 
+  // Function to handle selecting data type
   const handleSelectData = (data) => {
     setSelectedData(data);
   };
 
   return (
     <div className="GraphicsContainer">
+      {/* Display selectable data types */}
       <div className="spans">
         <span
           className={`chart-span ${
@@ -38,6 +41,7 @@ export default function FooterGraphics({ forecastData, unit }) {
           Wind
         </span>
       </div>
+      {/* Render corresponding component based on selected data type */}
       <div>
         {selectedData === "Wind" ? (
           <WindCard forecastData={forecastData} unit={unit} />
